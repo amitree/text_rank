@@ -50,6 +50,7 @@ module TextRank
       @token_filters = options[:token_filters] || []
       @rank_filters = options[:rank_filters] || []
       @graph_strategy = options[:graph_strategy] || GraphStrategy::Coocurrence
+      @filter_class_cache = {}
     end
 
     # Add a new CharFilter for processing text before tokenization
@@ -163,13 +164,17 @@ module TextRank
     def classify(clazz, context: self)
       case clazz
       when Class
-        clazz.new
+        cached_class(clazz)
       when Symbol
-        context.const_get(clazz).new
+        clazz = context.const_get(clazz)
+        cached_class(clazz)
       else
         clazz
       end
     end
 
+    def cached_class(clazz)
+      @filter_class_cache[clazz.name] ||= clazz.new
+    end
   end
 end
