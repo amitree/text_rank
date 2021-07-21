@@ -23,10 +23,9 @@ module TextRank
       # Perform the filter
       # @param text [String]
       # @return [String]
-      def filter!(text)
+      def self.filter!(text)
         text.tr!(NON_ASCII_CHARS, EQUIVALENT_ASCII_CHARS)
       end
-
     end
   end
 end

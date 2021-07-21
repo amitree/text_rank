@@ -13,18 +13,12 @@ module TextRank
     #  => ["passenger", "cursed", "existence", "himself", "miserable", "permission", "head-first"]
     ##
     class MinLength
-
-      # @param min_length [Fixnum] minimum size of token to keep
-      def initialize(min_length: 3, **_)
-        @min_length = min_length
-      end
-
       # Perform the filter
       # @param tokens [Array<String>]
       # @return [Array<String>]
-      def filter!(tokens)
+      def self.filter!(tokens, min_length: 3, **_)
         tokens.keep_if do |token|
-          token.size >= @min_length
+          token.size >= min_length
         end
       end
 

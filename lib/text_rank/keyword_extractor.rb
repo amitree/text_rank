@@ -7,7 +7,6 @@ module TextRank
   # @see README
   ##
   class KeywordExtractor
-
     # Creates a "basic" keyword extractor with default options
     # @option (see #initialize)
     # @return [KeywordExtractor]
@@ -50,7 +49,6 @@ module TextRank
       @token_filters = options[:token_filters] || []
       @rank_filters = options[:rank_filters] || []
       @graph_strategy = options[:graph_strategy] || GraphStrategy::Coocurrence
-      @filter_class_cache = {}
     end
 
     # Add a new CharFilter for processing text before tokenization
@@ -164,17 +162,13 @@ module TextRank
     def classify(clazz, context: self)
       case clazz
       when Class
-        cached_class(clazz)
+        clazz.new
       when Symbol
         clazz = context.const_get(clazz)
-        cached_class(clazz)
+        [CharFilter, TokenFilter].include?(context) ? clazz : clazz.new
       else
         clazz
       end
-    end
-
-    def cached_class(clazz)
-      @filter_class_cache[clazz.name] ||= clazz.new
     end
   end
 end

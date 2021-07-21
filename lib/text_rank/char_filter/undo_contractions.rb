@@ -16,7 +16,7 @@ module TextRank
       # Perform the filter
       # @param text [String]
       # @return [String]
-      def filter!(text)
+      def self.filter!(text)
         text.gsub!(/[a-z']+/) do |word|
           CONTRACTIONS[word] || word
         end

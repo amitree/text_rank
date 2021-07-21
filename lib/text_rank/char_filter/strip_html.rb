@@ -14,28 +14,13 @@ module TextRank
     #  StringHtml.new.filter!("<b>Alas! It is the <u>obstinacy</u> of maintaining that everything is best when it is worst.</b>")
     #  => "Alas! It is the obstinacy of maintaining that everything is best when it is worst."
     ##
-    class StripHtml < Nokogiri::XML::SAX::Document
-
-      def initialize
-        @text = StringIO.new
-      end
-
+    class StripHtml
       # Perform the filter
       # @param text [String]
       # @return [String]
-      def filter!(text)
-        @text.rewind
-        Nokogiri::HTML::SAX::Parser.new(self).parse(text)
-        @text.string
+      def self.filter!(text)
+        Nokogiri::HTML(text).text
       end
-
-      protected
-
-      def characters(string)
-        @text << ' '
-        @text << string
-      end
-
     end
   end
 end

@@ -18,7 +18,7 @@ module TextRank
       # Perform the filter
       # @param tokens [Array<String>]
       # @return [Array<String>]
-      def filter!(tokens)
+      def self.filter!(tokens)
         tokens.delete_if do |token|
           STOP_WORDS.include?(token.downcase)
         end

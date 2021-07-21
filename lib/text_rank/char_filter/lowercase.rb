@@ -13,10 +13,9 @@ module TextRank
       # Perform the filter
       # @param text [String]
       # @return [String]
-      def filter!(text)
+      def self.filter!(text)
         text.downcase!
       end
-
     end
   end
 end

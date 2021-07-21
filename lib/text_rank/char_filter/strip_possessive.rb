@@ -13,7 +13,7 @@ module TextRank
       # Perform the filter
       # @param text [String]
       # @return [String]
-      def filter!(text)
+      def self.filter!(text)
         text.gsub!(/([a-z]+)'s\b/) do
           Regexp.last_match(1)
         end
