@@ -136,8 +136,10 @@ module TextRank
             @tokens[perm.join(@delimiter)] = values.reduce(:+) / values.size
           end
 
+          to_remove = TextRank::BloomFilter.new(@to_remove)
+
           @tokens.reject! do |k, _|
-            @to_remove.include?(k)
+            to_remove.include?(k)
           end || @tokens
         end
 

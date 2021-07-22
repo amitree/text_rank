@@ -29,4 +29,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'engtagger' # Optional runtime dependency but needed for specs
   spec.add_development_dependency 'nokogiri'  # Optional runtime dependency but needed for specs
+
+  spec.add_runtime_dependency 'bloomfilter-rb'
 end

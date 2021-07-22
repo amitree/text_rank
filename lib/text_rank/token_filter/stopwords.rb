@@ -19,8 +19,10 @@ module TextRank
       # @param tokens [Array<String>]
       # @return [Array<String>]
       def self.filter!(tokens)
+        stopwords = TextRank::BloomFilter.new(STOP_WORDS)
+
         tokens.delete_if do |token|
-          STOP_WORDS.include?(token.downcase)
+          stopwords.include?(token.downcase)
         end
       end
 

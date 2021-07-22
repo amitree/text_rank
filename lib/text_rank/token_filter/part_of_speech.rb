@@ -21,10 +21,11 @@ module TextRank
       # @return [Array<String>]
       def self.filter!(tokens)
         last_pos_tag = 'pp'
+        parts_to_keep = TextRank::BloomFilter.new(PARTS_TO_KEEP)
 
         tokens.keep_if do |token|
           last_pos_tag = pos_tag(token, last_pos_tag: last_pos_tag)
-          PARTS_TO_KEEP.include?(last_pos_tag)
+          parts_to_keep.include?(last_pos_tag)
         end
       end
 
